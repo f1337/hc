@@ -7,7 +7,7 @@ import (
 )
 
 var config = &Config{
-	name:         "My MDNS Service",
+	Name:         "My MDNS Service",
 	id:           "1234",
 	servePort:    5010,
 	version:      1,

@@ -21,7 +21,7 @@ func newService(config *Config) dnssd.Service {
 	// produces by iOS.
 	//
 	// [Radar] http://openradar.appspot.com/radar?id=4931940373233664
-	stripped := strings.Replace(config.name, " ", "_", -1)
+	stripped := strings.Replace(config.Name, " ", "_", -1)
 
 	var ips []net.IP
 	if ip := net.ParseIP(config.IP); ip != nil {
@@ -52,7 +52,7 @@ func (s *MDNSService) Publish(ctx context.Context) error {
 	// produces by iOS.
 	//
 	// [Radar] http://openradar.appspot.com/radar?id=4931940373233664
-	stripped := strings.Replace(s.config.name, " ", "_", -1)
+	stripped := strings.Replace(s.config.Name, " ", "_", -1)
 
 	var ips []net.IP
 	if ip := net.ParseIP(s.config.IP); ip != nil {

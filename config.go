@@ -28,7 +28,9 @@ type Config struct {
 	// When empty, the pin 00102003 is used
 	Pin string
 
-	name         string // Accessory name
+	// Hub/Accessory name
+	Name         string
+
 	id           string // Accessory id
 	servePort    int    // Actual port the server listens at (might be differen than Port field)
 	version      int64  // Accessory content version (c#)
@@ -51,7 +53,7 @@ func defaultConfig(name string) *Config {
 		Pin:          "00102003", // default pin
 		Port:         "",         // empty string means that we get port from assigned by the system
 		IP:           ip.String(),
-		name:         name,
+		Name:         name,
 		id:           util.MAC48Address(util.RandomHexString()),
 		version:      1,
 		state:        1,
@@ -70,7 +72,7 @@ func (cfg Config) txtRecords() map[string]string {
 		"s#": fmt.Sprintf("%d", cfg.state),
 		"sf": fmt.Sprintf("%d", to.Int64(cfg.discoverable)),
 		"ff": fmt.Sprintf("%d", to.Int64(cfg.mfiCompliant)),
-		"md": cfg.name,
+		"md": cfg.Name,
 		"ci": fmt.Sprintf("c%d", cfg.categoryId),
 	}
 }
@@ -113,6 +115,10 @@ func (cfg *Config) merge(other Config) {
 
 	if ip := other.IP; len(ip) > 0 {
 		cfg.IP = ip
+	}
+
+	if name := other.Name; len(name) > 0 {
+		cfg.Name = name
 	}
 }
 
